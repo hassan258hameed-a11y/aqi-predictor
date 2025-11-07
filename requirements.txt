@@ -1,5 +1,5 @@
-# ---- core packages ----
-numpy==1.26.4          # force NumPy 1.x before Prophet installs
+# core libs
+numpy==1.26.4
 pandas==2.2.2
 scikit-learn==1.5.2
 matplotlib==3.9.2
@@ -8,9 +8,9 @@ shap==0.45.1
 joblib==1.4.2
 requests==2.32.3
 
-# ---- forecasting ----
+# prophet + runtime
 cmdstanpy==1.2.3
-prophet==1.1.4         # compatible with NumPy 1.26.x
+prophet==1.1.4
 
-# ---- dashboard ----
+# dashboard
 streamlit==1.39.0
