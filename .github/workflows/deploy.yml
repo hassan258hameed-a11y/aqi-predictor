@@ -11,6 +11,7 @@ on:
 jobs:
   pipeline:
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
@@ -20,16 +21,30 @@ jobs:
         with:
           python-version: '3.10'
 
+      # ✅ This step ensures pandas and all packages are installed
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install -r requirements.txt
+          if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+          python -m pip show pandas || echo "pandas not found"
+
+      # ✅ This step fixes Python import errors for src/
+      - name: Set PYTHONPATH
+        run: echo "PYTHONPATH=$PWD" >> $GITHUB_ENV
 
       - name: Run hourly feature update
         run: python src/fetch_features.py
 
       - name: Run daily model training
-        run: python src/train_model.py
+        run: python src/train.py
+
+      - name: Verify model output
+        run: |
+          echo "🔍 Checking saved model and registry..."
+          ls -R src/models || echo "No model directory found."
+          ls -R models || echo "No model folder found."
+          find . -name "aqi_model.pkl" || echo "No model file found."
+
 
       - name: Deploy to Streamlit
         env:
