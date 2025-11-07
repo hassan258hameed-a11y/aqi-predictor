@@ -1,0 +1,5 @@
+{
+  "model_path": "C:\\Users\\hassan\\Desktop\\project\\data\\models\\aqi_model.pkl",
+  "mae": 0.6928408333333157,
+  "r2": 0.9940738666269527
+}

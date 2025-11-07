@@ -1,0 +1,61 @@
+{
+  "location": {
+    "name": "Karachi",
+    "region": "Sindh",
+    "country": "Pakistan",
+    "lat": 24.8667,
+    "lon": 67.05,
+    "tz_id": "Asia/Karachi",
+    "localtime_epoch": 1761485212,
+    "localtime": "2025-10-26 18:26"
+  },
+  "current": {
+    "last_updated_epoch": 1761484500,
+    "last_updated": "2025-10-26 18:15",
+    "temp_c": 33.2,
+    "temp_f": 91.8,
+    "is_day": 0,
+    "condition": {
+      "text": "Mist",
+      "icon": "//cdn.weatherapi.com/weather/64x64/night/143.png",
+      "code": 1030
+    },
+    "wind_mph": 11.0,
+    "wind_kph": 17.6,
+    "wind_degree": 44,
+    "wind_dir": "NE",
+    "pressure_mb": 1008.0,
+    "pressure_in": 29.77,
+    "precip_mm": 0.0,
+    "precip_in": 0.0,
+    "humidity": 17,
+    "cloud": 0,
+    "feelslike_c": 31.6,
+    "feelslike_f": 89.0,
+    "windchill_c": 32.9,
+    "windchill_f": 91.2,
+    "heatindex_c": 31.3,
+    "heatindex_f": 88.3,
+    "dewpoint_c": 9.4,
+    "dewpoint_f": 48.9,
+    "vis_km": 4.0,
+    "vis_miles": 2.0,
+    "uv": 0.0,
+    "gust_mph": 21.5,
+    "gust_kph": 34.6,
+    "air_quality": {
+      "co": 344.85,
+      "no2": 4.65,
+      "o3": 156.0,
+      "so2": 12.05,
+      "pm2_5": 11.05,
+      "pm10": 13.15,
+      "us-epa-index": 1,
+      "gb-defra-index": 1
+    },
+    "short_rad": 0,
+    "diff_rad": 0,
+    "dni": 0,
+    "gti": 0
+  }
+}
