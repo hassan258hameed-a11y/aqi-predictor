@@ -8,8 +8,18 @@ import joblib
 from datetime import datetime
 import shap
 import matplotlib.pyplot as plt
-from prophet import Prophet
 from pathlib import Path
+
+# -------------------------------------
+# ✅ Safe Prophet Import
+# -------------------------------------
+try:
+    from prophet import Prophet
+    PROPHET_OK = True
+except Exception as e:
+    PROPHET_OK = False
+    import logging
+    logging.warning(f"Prophet import failed: {e}")
 
 from src.config import MODEL_SAVE_DIR, FEATURE_STORE_DIR, WEATHERAPI_KEY
 from src.fetch_features import fetch_now, make_features
@@ -48,17 +58,32 @@ def aqi_alert(aqi: int):
         st.success("✅ Good AQI — clean air.")
 
 # -------------------------------------
-# ✅ Prophet 3-Day Forecast
+# ✅ 3-Day Forecast (Prophet or fallback)
 # -------------------------------------
 def forecast_3_days(df: pd.DataFrame):
-    df_prophet = df[['observed_at', 'pm2_5']].dropna().rename(
-        columns={"observed_at": "ds", "pm2_5": "y"}
-    )
-    model = Prophet()
-    model.fit(df_prophet)
-    future = model.make_future_dataframe(periods=72, freq="H")
-    fc = model.predict(future)
-    return fc[['ds', 'yhat']]
+    if df is None or df.empty:
+        return pd.DataFrame(columns=["ds", "yhat"])
+    try:
+        if PROPHET_OK:
+            df_prophet = df[['observed_at', 'pm2_5']].dropna().rename(
+                columns={"observed_at": "ds", "pm2_5": "y"}
+            )
+            model = Prophet()
+            model.fit(df_prophet)
+            future = model.make_future_dataframe(periods=72, freq="H")
+            fc = model.predict(future)
+            return fc[['ds', 'yhat']]
+        else:
+            raise ImportError("Prophet not available.")
+    except Exception as e:
+        import logging
+        logging.warning(f"Prophet forecast failed: {e}. Using simple fallback.")
+        s = df.set_index("observed_at")["pm2_5"].dropna()
+        if len(s) == 0:
+            return pd.DataFrame(columns=["ds", "yhat"])
+        last_val = float(s.iloc[-1])
+        idx = pd.date_range(start=s.index[-1], periods=73, freq="H", closed="right")
+        return pd.DataFrame({"ds": idx, "yhat": [last_val]*72})
 
 # -------------------------------------
 # ✅ Streamlit App
