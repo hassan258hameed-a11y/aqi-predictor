@@ -1,11 +1,16 @@
-streamlit
-pandas
-numpy<2.0          # 👈 forces NumPy 1.26.x, which Prophet expects
-plotly
-joblib
-shap
-scikit-learn
-matplotlib
-prophet==1.1.4     # 👈 tested stable version
+# ---- core packages ----
+numpy==1.26.4          # force NumPy 1.x before Prophet installs
+pandas==2.2.2
+scikit-learn==1.5.2
+matplotlib==3.9.2
+plotly==5.24.1
+shap==0.45.1
+joblib==1.4.2
+requests==2.32.3
+
+# ---- forecasting ----
 cmdstanpy==1.2.3
-requests
+prophet==1.1.4         # compatible with NumPy 1.26.x
+
+# ---- dashboard ----
+streamlit==1.39.0
