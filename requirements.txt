@@ -1,11 +1,11 @@
 streamlit
 pandas
-numpy<2.0
+numpy<2.0          # 👈 forces NumPy 1.26.x, which Prophet expects
 plotly
 joblib
 shap
 scikit-learn
 matplotlib
-prophet==1.1.4
+prophet==1.1.4     # 👈 tested stable version
 cmdstanpy==1.2.3
 requests
